@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Basvuru";
+}
+
+@model  WebApplication4.Models.basvurum
+
+<html lang="en">
+<head>
+    <title>form</title>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+   
+    <link rel="stylesheet" href="~/App_Start/Content/plusbusiness/layout/styles/layout.css" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/App_Start/Content/bform.css" media="screen" />
+
+    <style>
+        #topnav li a:link, #topnav li a:visited, #topnav li a:hover {
+            display: block;
+            margin: 0;
+            padding: 15px 20px;
+            color: white;
+            background-color: #666666;
+        }
+
+        #topnav li a:hover, #topnav ul li.active a {
+            color: white;
+            background-color: #94a8c3;
+        }
+
+        #links_left a {
+            color: #292929;
+            font-size: 13px;
+        }
+
+     input[type="reset"] { 
+            margin: 5px 61px;       
+        }
+    </style>
+
+    </head>
+<body>
+    <div class="wrapper col1" style="background-color:#00A3DA;">
+        <div id="header" style="height:50px;">
+            <div id="logo" style="height:100px;margin:-34px 0px 0px;">
+                <h1><a href="#"><img src="~/App_Start/Content/logopıtonbeyaz.png" style="width:200px;" /></a></h1>
+
+            </div>
+            <div id="topnav" style="margin:0px 0px 0px;font-family:inherit;">
+                <ul>
+
+                    @{
+
+
+
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Anasayfa" ? "active" : "")">@Html.ActionLink("Anasayfa", "Anasayfa", "Home", new { id = ViewContext.RouteData.Values["id"] }, null)</li>
+
+                        if (ViewContext.RouteData.Values["id"] != null)
+                        {
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Profil" ? "active" : "")">@Html.ActionLink("Profil", "Profil", "Home", new { id = ViewContext.RouteData.Values["id"] }, null)</li>
+                        }
+                        <li>
+                            <a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Uyeler" ? "active" : "")" href="@Url.Action("Uyeler", "Home", new { id = ViewContext.RouteData.Values["id"] }, null)">Üyeler</a>
+                        </li>
+
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Basvuru" ? "active" : "")">@Html.ActionLink("Basvuru", "Basvuru", "Home", new { id = ViewContext.RouteData.Values["id"] }, null)</li>
+                        if (ViewContext.RouteData.Values["id"] != null)
+                        {
+                            <li>
+                                <a href="#">Hesap</a>
+                                <ul>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ProfilAyar" ? "active" : "")"><a href="@Url.Action("ProfilAyar", "Home", new { id = ViewContext.RouteData.Values["id"] }, null)">Profilini Düzenle</a></li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Giris" ? "active" : "")"><a href="@Url.Action("Giris","Home")">Çıkış Yap</a></li>
+                                </ul>
+                            </li>
+                        }
+                        if (ViewContext.RouteData.Values["id"] == null)
+                        {
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Giris" ? "active" : "")">@Html.ActionLink("Giris", "Giris", "Home", new { id = ViewContext.RouteData.Values["id"] }, null) </li>
+                        }
+                        }
+                </ul>
+            </div>
+            <br class="clear" />
+        </div>
+    </div>
+   
+  
+        @using (Html.BeginForm("Mail", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div id="wrapper">
+               
+                    <fieldset>
+
+                        @if (TempData["notice"] != null)
+                        {
+                            <h2>@TempData["notice"]</h2>
+                        }
+
+                        <h2>Bağlantıda Kalın...</h2>
+                        <div>
+                            <input type="text" name="İsim" placeholder="Ad Soyad" />
+                        </div>
+                        <div>
+                            <input type="text" name="email" placeholder="Email" />
+                        </div>
+                        <div>
+                            <input type="password" name="sifre" placeholder="Şifre(En Az 6 En Fazla 20 Karakter)" />
+                        </div>
+                        <div>
+                            <input type="password" name="onaysifre" placeholder="Şifrenizi Tekrarlayınız" />
+                        </div>
+                        <div>
+
+                            <select name="Universite">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model.universiteler)
+                                    {
+
+                                        <option>@item.universitead.ToString()</option>
+
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <input type="text" name="Bölüm" placeholder="Bölüm" />
+                        </div>
+                        <div>
+                            <input type="text" name="Sınıf" placeholder="Sınıf" />
+                        </div>
+                        <div>
+                            <input type="text" name="Cep" placeholder="Telefon" />
+                        </div>
+                        <p> Cv Dosyası</p>
+                        <div>                           
+                            <input type="file" name="dosya" placeholder="Cv" />
+                        </div>
+                        <p>Resim</p>
+                            <input type="file" name="resim" />
+                        <div>
+                            <textarea name="Mesaj" placeholder="Mesaj" style="width:288px"></textarea>
+                        </div>
+                        <input type="submit" name="submit" value="Gönder" style="background-color:#00A3DA;color:black;" id="gonder" />
+                        <input type="reset" name="reset" value="Temizle" style="background-color:#00A3DA;color:black;" />
+
+
+                    </fieldset>
+                
+            </div>
+        }
+       
+</body>
+</html>

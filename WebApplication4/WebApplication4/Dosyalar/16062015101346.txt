@@ -1,0 +1,81 @@
+app.data dosyasý
+
+ Proje içerisinde ki veritabaný vb. veri kaynaklarýnýn, 
+dosyalar halinde eklendiði klasördür.
+
+app_start
+
+Projenin ilk açýlýþý esnasýnda (sunucunun ilk baþlatýlýþý ya da 
+yeniden baþlatýlmasý), iþlem yapmasý istenilen sýnýflarýn, 
+filtrelerin, metodlarýn bulunduðu klasördür. Örneðin Route, 
+yani sayfa yönlendirme dosyasýnýn ya da projeye eklediðimiz 
+JavaScript, Css gibi dosyalarýn sýkýþtýrýlarak istemciye 
+gönderilmesi mimarisi olan BundleConfig gibi dosyalarý burada barýndýrýrýz.
+
+
+Content 
+
+Bu klasör, zorunlu olmamakla birlikte genelde css dosyalarý bu klasörde barýndýrýlabilir
+
+Controllers 
+
+ Controller dosyalarýnýn barýndýrýldýðý klasördür.
+
+fonts 
+
+ Asp.Net Mvc 5 sürümü ile birlikte, örnek projeye eklenen (bu klasörü kullanmak zorunda deðilsiniz), font dosyalarýný barýndýrabileceðiniz alandýr.
+
+
+Models 
+
+model dosyalarýnýn barýndýýrýldýðý klasördür.
+
+Scripts
+
+Javascript tarzý script dosyalarýný barýndýrabileceðiniz alandýr.
+
+Views :
+
+ View dosyalarýnýn barýndýrýldýðý klasördür.?
+
+
+favicon.ico 
+
+ Tarayýcýnýn üst kýsmýnda ve favori siteler kýsmýnda görünen ikondur.
+
+
+
+Global.asax : 
+Sitenin genelinde yapýlan iþlemlerin kontrol edilmesini saðlar. 
+Örneðin bir üye oturum açtýðýnda, sunucu ilk açýldýðýnda, oturum kapatýldýðýnda gibi aksiyonlar esnasýnda, 
+yapýlmasý gerekenleri bu sýnýf içerisinde kontrol edebiliriz.
+
+
+packages.config :
+
+ Proje de kurulu olan frameworklerin kayýtlý olduðu yerdir. Buraya genelde Nuget Paket Yöneticisi vasýtasýyla paketler kurulabilir.
+
+
+Project_Readme.html : 
+
+Örnek proje hakkýnda Microsoft'un hazýrladýðý bilgilendirme sayfasýdýr.
+
+
+Startup.cs :
+
+ Daha önceden App_Start klasörünün altýnda bulunan bu dosya, Mvc 5 sürümü ile birlikte ana dizine alýnmýþ durumdadýr.
+
+
+Web.config :
+ Proje ile ilgili tüm merkezi ayarlarýn saklandýðý yerdir.
+ E-posta hesap bilgileri, Cookie süreleri, Sql baðlantý bilgileri vb. tüm bilgiler bu alanda kaydedilebilir ve düzenlenebilir.
+
+Layout :
+ Sitenin temelini teþkil eden sayfadýr.
+ Bu sayfada ki veriler, bu sayfayý baz alan tüm sayfalar da otomatikman yüklenecektir.
+ Böylelikle menü, alt bilgi vb. bilgiler deðiþtiðinde her sayfada bu iþlemi tek tek yapmak zorunda kalmayacaðýz.
+views>shared altklasöründe bulunur.
+
+
+
+html responsive

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="basvuruModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="basvuruEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TBLKULLANICI" EntityType="basvuruModel.BASVURU" />
+  </EntityContainer>
+  <EntityType Name="BASVURU">
+    <Key>
+      <PropertyRef Name="TABLEID" />
+    </Key>
+    <Property Name="TABLEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AKTIF" Type="Boolean" Nullable="false" />
+    <Property Name="SIL" Type="Boolean" Nullable="false" />
+    <Property Name="KAYITTARIHI" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="KULLANICIID" Type="Int32" Nullable="false" />
+  </EntityType>
+</Schema>

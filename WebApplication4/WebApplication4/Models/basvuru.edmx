@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="basvuruModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BASVURULAR">
+          <Key>
+            <PropertyRef Name="BASVURUID" />
+          </Key>
+          <Property Name="BASVURUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isim" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Resim" Type="varbinary(max)" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="üniversite" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bölüm" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="sınıf" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="cep" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="cv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mesaj" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Galeri">
+          <Key>
+            <PropertyRef Name="GaleriID" />
+          </Key>
+          <Property Name="GaleriID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="resim" Type="varbinary(max)" />
+          <Property Name="EkleyenID" Type="int" Nullable="false" />
+          <Property Name="video" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Makale">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Icerik" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="YayımTarihi" Type="datetime" Nullable="false" />
+          <Property Name="YazarID" Type="int" Nullable="false" />
+          <Property Name="GaleriID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="universite">
+          <Key>
+            <PropertyRef Name="universiteid" />
+          </Key>
+          <Property Name="universitead" Type="nvarchar" MaxLength="50" />
+          <Property Name="universiteid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Yorum">
+          <Key>
+            <PropertyRef Name="YorumID" />
+          </Key>
+          <Property Name="YorumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Icerik" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MakaleID" Type="int" Nullable="false" />
+          <Property Name="İsim" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="BasvuruID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Makale_BASVURULAR">
+          <End Role="BASVURULAR" Type="Self.BASVURULAR" Multiplicity="1" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BASVURULAR">
+              <PropertyRef Name="BASVURUID" />
+            </Principal>
+            <Dependent Role="Makale">
+              <PropertyRef Name="YazarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Makale_Galeri">
+          <End Role="Galeri" Type="Self.Galeri" Multiplicity="0..1" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Galeri">
+              <PropertyRef Name="GaleriID" />
+            </Principal>
+            <Dependent Role="Makale">
+              <PropertyRef Name="GaleriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yorum_Makale">
+          <End Role="Makale" Type="Self.Makale" Multiplicity="1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Makale">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="MakaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="basvuruModelStoreContainer">
+          <EntitySet Name="BASVURULAR" EntityType="Self.BASVURULAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Galeri" EntityType="Self.Galeri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Makale" EntityType="Self.Makale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="universite" EntityType="Self.universite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yorum" EntityType="Self.Yorum" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Makale_BASVURULAR" Association="Self.FK_Makale_BASVURULAR">
+            <End Role="BASVURULAR" EntitySet="BASVURULAR" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Makale_Galeri" Association="Self.FK_Makale_Galeri">
+            <End Role="Galeri" EntitySet="Galeri" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Makale" Association="Self.FK_Yorum_Makale">
+            <End Role="Makale" EntitySet="Makale" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="basvuruModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BASVURULAR">
+          <Key>
+            <PropertyRef Name="BASVURUID" />
+          </Key>
+          <Property Name="BASVURUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isim" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Resim" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="sifre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="üniversite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bölüm" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sınıf" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="cep" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Makale" Relationship="Self.FK_Makale_BASVURULAR" FromRole="BASVURULAR" ToRole="Makale" />
+        </EntityType>
+        <EntityType Name="Galeri">
+          <Key>
+            <PropertyRef Name="GaleriID" />
+          </Key>
+          <Property Name="GaleriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="resim" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EkleyenID" Type="Int32" Nullable="false" />
+          <Property Name="video" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Makale" Relationship="Self.FK_Makale_Galeri" FromRole="Galeri" ToRole="Makale" />
+        </EntityType>
+        <EntityType Name="Makale">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YayımTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="YazarID" Type="Int32" Nullable="false" />
+          <Property Name="GaleriID" Type="Int32" />
+          <NavigationProperty Name="BASVURULAR" Relationship="Self.FK_Makale_BASVURULAR" FromRole="Makale" ToRole="BASVURULAR" />
+          <NavigationProperty Name="Galeri" Relationship="Self.FK_Makale_Galeri" FromRole="Makale" ToRole="Galeri" />
+          <NavigationProperty Name="Yorum" Relationship="Self.FK_Yorum_Makale" FromRole="Makale" ToRole="Yorum" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="universite">
+          <Key>
+            <PropertyRef Name="universiteid" />
+          </Key>
+          <Property Name="universitead" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="universiteid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Yorum">
+          <Key>
+            <PropertyRef Name="YorumID" />
+          </Key>
+          <Property Name="YorumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MakaleID" Type="Int32" Nullable="false" />
+          <Property Name="İsim" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BasvuruID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Makale" Relationship="Self.FK_Yorum_Makale" FromRole="Yorum" ToRole="Makale" />
+        </EntityType>
+        <Association Name="FK_Makale_BASVURULAR">
+          <End Role="BASVURULAR" Type="Self.BASVURULAR" Multiplicity="1" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BASVURULAR">
+              <PropertyRef Name="BASVURUID" />
+            </Principal>
+            <Dependent Role="Makale">
+              <PropertyRef Name="YazarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Makale_Galeri">
+          <End Role="Galeri" Type="Self.Galeri" Multiplicity="0..1" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Galeri">
+              <PropertyRef Name="GaleriID" />
+            </Principal>
+            <Dependent Role="Makale">
+              <PropertyRef Name="GaleriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yorum_Makale">
+          <End Role="Makale" Type="Self.Makale" Multiplicity="1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Makale">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="MakaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Basvuru" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BASVURULAR" EntityType="Self.BASVURULAR" />
+          <EntitySet Name="Galeri" EntityType="Self.Galeri" />
+          <EntitySet Name="Makale" EntityType="Self.Makale" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="universite" EntityType="Self.universite" />
+          <EntitySet Name="Yorum" EntityType="Self.Yorum" />
+          <AssociationSet Name="FK_Makale_BASVURULAR" Association="Self.FK_Makale_BASVURULAR">
+            <End Role="BASVURULAR" EntitySet="BASVURULAR" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Makale_Galeri" Association="Self.FK_Makale_Galeri">
+            <End Role="Galeri" EntitySet="Galeri" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Makale" Association="Self.FK_Yorum_Makale">
+            <End Role="Makale" EntitySet="Makale" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="basvuruModelStoreContainer" CdmEntityContainer="Basvuru">
+          <EntitySetMapping Name="BASVURULAR">
+            <EntityTypeMapping TypeName="basvuruModel.BASVURULAR">
+              <MappingFragment StoreEntitySet="BASVURULAR">
+                <ScalarProperty Name="BASVURUID" ColumnName="BASVURUID" />
+                <ScalarProperty Name="isim" ColumnName="isim" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Resim" ColumnName="Resim" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="üniversite" ColumnName="üniversite" />
+                <ScalarProperty Name="bölüm" ColumnName="bölüm" />
+                <ScalarProperty Name="sınıf" ColumnName="sınıf" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="cv" ColumnName="cv" />
+                <ScalarProperty Name="mesaj" ColumnName="mesaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Galeri">
+            <EntityTypeMapping TypeName="basvuruModel.Galeri">
+              <MappingFragment StoreEntitySet="Galeri">
+                <ScalarProperty Name="GaleriID" ColumnName="GaleriID" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="EkleyenID" ColumnName="EkleyenID" />
+                <ScalarProperty Name="video" ColumnName="video" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Makale">
+            <EntityTypeMapping TypeName="basvuruModel.Makale">
+              <MappingFragment StoreEntitySet="Makale">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+                <ScalarProperty Name="YayımTarihi" ColumnName="YayımTarihi" />
+                <ScalarProperty Name="YazarID" ColumnName="YazarID" />
+                <ScalarProperty Name="GaleriID" ColumnName="GaleriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="basvuruModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="universite">
+            <EntityTypeMapping TypeName="basvuruModel.universite">
+              <MappingFragment StoreEntitySet="universite">
+                <ScalarProperty Name="universitead" ColumnName="universitead" />
+                <ScalarProperty Name="universiteid" ColumnName="universiteid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yorum">
+            <EntityTypeMapping TypeName="basvuruModel.Yorum">
+              <MappingFragment StoreEntitySet="Yorum">
+                <ScalarProperty Name="YorumID" ColumnName="YorumID" />
+                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+                <ScalarProperty Name="MakaleID" ColumnName="MakaleID" />
+                <ScalarProperty Name="İsim" ColumnName="İsim" />
+                <ScalarProperty Name="BasvuruID" ColumnName="BasvuruID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

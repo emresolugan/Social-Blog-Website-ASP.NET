@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="basvuruModelStoreContainer" CdmEntityContainer="basvuruEntities">
+    <EntitySetMapping Name="TBLKULLANICI">
+      <EntityTypeMapping TypeName="basvuruModel.BASVURU">
+        <MappingFragment StoreEntitySet="TBLKULLANICI">
+          <ScalarProperty Name="KULLANICIID" ColumnName="KULLANICIID" />
+          <ScalarProperty Name="KAYITTARIHI" ColumnName="KAYITTARIHI" />
+          <ScalarProperty Name="SIL" ColumnName="SIL" />
+          <ScalarProperty Name="AKTIF" ColumnName="AKTIF" />
+          <ScalarProperty Name="TABLEID" ColumnName="TABLEID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

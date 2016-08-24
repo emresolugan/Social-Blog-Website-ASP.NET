@@ -1,0 +1,94 @@
+﻿
+@model WebApplication4.Models.basvurum
+
+
+
+@{
+        if (Model.makale != null)
+        {
+            foreach (var data in Model.makale)
+            {
+                if (data.YazarID == Model.bid)
+                {
+                    <li class="comment_odd">
+                        @if (Model.id == data.BASVURULAR.BASVURUID)
+                        {
+                        <div class="author"><img class="avatar" src="data:image/png;base64,@Convert.ToBase64String(data.BASVURULAR.Resim)" width="32" height="32" alt="" /><span class="name"><a href="@Url.Action("Profil", "Home", new { id = Model.id})">@data.BASVURULAR.isim</a></span> <span class="wrote">Yazdı:</span></div>
+                        }
+                        else
+                        {
+                            <div class="author"><img class="avatar" src="data:image/png;base64,@Convert.ToBase64String(data.BASVURULAR.Resim)" width="32" height="32" alt="" /><span class="name"><a href="@Url.Action("BProfil", "Home", new { id = Model.id, bid = data.BASVURULAR.BASVURUID })">@data.BASVURULAR.isim</a></span> <span class="wrote">Yazdı:</span></div>
+                        }
+
+                        <div class="submitdate"><a href="#">@data.YayımTarihi</a></div>
+
+                        <br />
+                        @if (data.GaleriID != null)
+                        {
+                            if(data.Galeri.resim!=null)
+                            { 
+                            <img style="width:200px;height:200px;" src="data:image/png;base64,@Convert.ToBase64String(data.Galeri.resim)" />
+                            }
+                            if (data.Galeri.video != null)
+                            {
+                                <iframe width="420" height="345"
+                                        src="@data.Galeri.video" allowfullscreen></iframe>
+                            }
+                        }
+                        <br />
+
+
+                        <p>@data.Icerik</p>
+                    </li>
+
+                    if (Model.yorum != null)
+                    {
+                        <h2>Yorumlar</h2>
+                        foreach (var dataYorum in Model.yorum)
+                        {
+                            if (data.ID == dataYorum.MakaleID)
+                            {
+                                <li class="comment_odd">
+                                    @{
+
+                                var sorgu = (from i in Model.basvurular where i.BASVURUID == dataYorum.BasvuruID select i).FirstOrDefault();
+                                if (sorgu.Resim != null)
+                                {
+                                    if (Model.id == dataYorum.BasvuruID)
+                        {
+                                    <div class="author"><img class="avatar" src="data:image/png;base64,@Convert.ToBase64String(sorgu.Resim)" width="32" height="32" alt="" /><span class="name"><a href="@Url.Action("Profil", "Home", new { id = Model.id})">@dataYorum.İsim</a></span> <span class="wrote">Yazdı:</span></div>
+                        }
+                                    else
+                                    {
+                                        <div class="author"><img class="avatar" src="data:image/png;base64,@Convert.ToBase64String(sorgu.Resim)" width="32" height="32" alt="" /><span class="name"><a href="@Url.Action("BProfil", "Home", new { id = Model.id, bid = dataYorum.BasvuruID })">@dataYorum.İsim</a></span> <span class="wrote">Yazdı:</span></div>
+                                    }
+                                }
+
+}
+
+                                    <p>@dataYorum.Icerik</p>
+                                </li>
+                            }
+                        }
+                        {
+
+                            using (Html.BeginForm("Bprofilislem", "Home", FormMethod.Post))
+                            {
+                                <input type="text" name="yorum" style="width:471px;height:22px" placeholder="Yorum" />
+                                <input type="submit" name="submit" value="Gönder" style="background-color:#00A3DA;color:black;padding: 5px 19px;" />
+                                <input type="hidden" name="id1" value="@data.ID" />
+                                <input type="hidden" name="id" value="@Model.id" />
+                                <input type="hidden" name="bid" value="@Model.bid" />
+                            }
+                            <hr />
+                        }
+                    }
+                }
+            
+        }
+
+
+    }
+
+
+}

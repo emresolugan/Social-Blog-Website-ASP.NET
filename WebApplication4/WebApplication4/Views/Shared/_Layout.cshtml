@@ -1,0 +1,58 @@
+﻿@model WebApplication4.Models.basvurum
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="~/App_Start/Content/plusbusiness/layout/styles/layout.css" type="text/css" />
+    <title>@ViewBag.Title - PITONAkademi</title>
+    <script type="text/javascript" src="~/App_Start/Content/plusbusiness/layout/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/App_Start/Content/plusbusiness/layout/scripts/jquery.jcarousel.pack.js"></script>
+    <script type="text/javascript" src="~/App_Start/Content/plusbusiness/layout/scripts/jquery.jcarousel.setup.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+
+   
+</head>
+<body id="top" style="background-color:#FFFFFF">
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <hr />
+    </div>
+    <div class="wrapper col4" style="background-color:#CCC;">
+        <div id="footer">
+            <div class="box1">
+                <h2 style="background-color:#CCC; color:black; border-bottom:1px dotted #000000;font-family:inherit;">Akademi Hakkında Kısa Bilgi !</h2>
+                <p style="color:black;font-family:inherit;">Morbitincidunt maurisque eros molest nunc anteget sed vel lacus mus semper. Anterdumnullam interdum eros dui urna consequam ac nisl nullam ligula vestassa. Condimentumfelis et amet tellent quisquet a leo lacus nec augue</p>
+                <p style="color:black">Portortornec condimenterdum eget consectetuer condis.</p>
+            </div>
+            <div class="box contactdetails">
+                <h2 style="background-color:#CCC; color:black; border-bottom:1px dotted #000000;font-family:inherit;">İletişim Bilgilerimiz</h2>
+                <ul>
+                    <li style ="color:black">Anadolu Üniversitesi Yunusemre Kampüsü</li>
+                    <li style="color:black">Anadolu Teknoparkı No:2/57-22</li>
+                    <li style="color:black">Tepebaşı/ESKİŞEHİR</li>
+                    <li style="color:black">Tel: (0) 222 222 1234</li>
+                    <li style="color:black">Email: info@Piton.com</li>
+                
+                </ul>
+            </div>
+
+            <br class="clear" />
+        </div>
+    </div>
+    <div class="wrapper col5" style="background-color:#00A3DA;font-family:inherit">
+        <div id="copyright">
+            <p class="fl_left">Copyright &copy; @DateTime.Now.Year - Tüm Hakları Saklıdır - PITONAkademi</p>
+            <p class="fl_right"><img src="~/App_Start/Content/logopıtonbeyaz.png" style="width:50px;" /></p>
+            <br class="clear" />
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    </body id="top">
+</html>
